@@ -1,18 +1,33 @@
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Last Chapter</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <div class="">
+    <div class="wrapper">
         <header class="">
             <h1>
                 The Last Chapter
             </h1>
+            <nav>
+        <a href="/">Home</a>
+            <!-- If the user is logged in, show a logout button -->
+            {{#if loggedIn}}
+            <button id="logout" class="btn-no-style">Logout</button>
+            {{else}}
+            <a href="/login">Login</a>
+            {{/if}}
+  </nav>
         </header>
-        <main class="">
+        <main>
+            <div class="bookstore">
             {{{ body }}}
+            </div>
         </main>
     </div>
+    {{#if loggedIn}}
+        <script src="/js/logout.js"></script>
+    {{/if}}
 </body>
