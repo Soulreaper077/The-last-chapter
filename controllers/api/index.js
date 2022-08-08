@@ -6,6 +6,6 @@ const wishlistRoutes = require('./wishlist-routes.js');
 
 router.use('/users', userRoutes);
 router.use('/books', bookRoutes);
-router.use('.wishlist', wishlistRoutes);
+router.use('/wishlist', wishlistRoutes);
 
 module.exports = router; 
