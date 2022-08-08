@@ -20,8 +20,8 @@ router.get('/:id', (req, res) => {
         },
         include: [
             {
-                model:'' , // place model here
-                attributes: ['id', 'title' ]
+                model: Book, // place model here
+                attributes: ['id', 'title', 'subtitle', 'authors', 'categories', 'thumbnail', 'description', 'published_year', 'average-rating', 'num_pages', 'ratings-count', 'price', 'createdAt' ]
             },
         ]
     })
