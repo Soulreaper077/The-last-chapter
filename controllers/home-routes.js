@@ -1,29 +1,29 @@
 const router = require('express').Router();
 const sequelize = require('../config/Connection');
-const { Book, User } = require('../models');
+const { Book, User, Wishlist } = require('../models');
 
-// getting all of the books to display to the homepage? 
+// or Get wishlist / post by user to display to homepage 
 router.get('/', (req, res) => {
-    Book.findAll({
+    console.log( ' getting the wishlist for all of the users');
+    Wishlist.findAll({
         attributes: [
+            'id',
             'title',
-            'subtitle',
-            'authors',
-            'categories',
-            'thumbnail',
             'description',
-            'published_year',
-            'average_rating',
-            'num_pages',
-            'ratings_count',
-            'price',
+            'posted_at',
         ],
+        include: [
+            {
+                model: User,
+                attributes: ['username'],
+            },
+        ]
     })
-    .then(dbBookData => {
-        const books = dbBookData.map(book => book.get({ plain: true }));
+    .then(dbWishData => {
+        const wishes = dbWishData.map(wish => wish.get({ plain: true }));
 
         res.render('homepage', {
-            books,
+            wishes,
             loggedIn: req.session.loggedIn
         });
     })
@@ -42,37 +42,36 @@ router.get('/login', (req, res) => {
     res.render('login'); 
 });
 
-// get a single book ? 
+// get the wishlist books for the user and display them here 
 
-router.get('/book/:id', (req, res) => {
-    Book.findOne({
+router.get('/wishlist/:id', (req, res) => {
+    Wishlist.findOne({
         where: {
             id: req.params.id
         },
         attributes: [
+            'id',
             'title',
-            'subtitle',
-            'authors',
-            'categories',
-            'thumbnail',
             'description',
-            'published_year',
-            'average_rating',
-            'num_pages',
-            'ratings_count',
-            'price',
+            'posted_at',
         ],
+        include: [
+            {
+                model: User,
+                attributes: ['username']
+            }
+        ]
     })
-    .then(dbBookData => {
-        if (!dbBookData) {
+    .then(dbWishData => {
+        if (!dbWishData) {
             res.status(404).json({ message: 'No book with this id found'});
             return; 
         }
 
-        const book = dbBookData.get({ plain: true });
+        const wish = dbWishData.get({ plain: true });
 
-        res.render('single-book', {
-            book,
+        res.render('single-wish', {
+            wish,
             loggedIn: req.session.loggedIn
         });
     })
@@ -81,5 +80,6 @@ router.get('/book/:id', (req, res) => {
         res.status(500).json(err);
     });
 });
+
 
 module.exports = router; 
