@@ -1,6 +1,6 @@
 :root {
-    --primary: #800000;
-    --secondary: #f5efdc;
+    --primary: #500000;
+    --secondary: #ffe4c4;
     --tertiary: #fa7f72;
     --light: #ebebeb;
     --dark: #182c23;
@@ -18,12 +18,49 @@ body {
 }
 
 header {
-    padding: 40px;
-    text-align: left;
+    padding: 20px 35px;
+}
+header h1 {
+    font-weight: bold;
+    font-size: 40px;
+    color: var(--tertiary);
 }
 
 main {
     display: flex;
     flex-wrap: wrap;
     flex-grow: 1;
+}
+
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary);
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 3vh;
+    font-weight: 20px;
+}
+nav a {
+    margin: 0 5vh;
+    font-weight: bold;
+    color: var(--primary);
+    border: solid;
+    border-color: var(--secondary);
+    background-color: var(--secondary);
+    border-radius: 10px;
+}
+
+nav .btn {
+    font-size: 3vh;
+    border-radius: 10px;
+
 }

@@ -7,19 +7,19 @@
 
 <body>
     <div class="wrapper">
-        <header class="">
+        <header class="site-nav display-flex">
             <h1>
                 The Last Chapter
             </h1>
             <nav>
-        <a href="/">Home</a>
-            <!-- If the user is logged in, show a logout button -->
-            {{#if loggedIn}}
-            <button id="logout" class="btn-no-style">Logout</button>
-            {{else}}
-            <a href="/login">Login</a>
-            {{/if}}
-  </nav>
+                <a href="/">Home</a>
+                {{#if loggedIn}}
+                <button id="logout" class="btn-no-style">Logout</button>
+                {{else}}
+                <a href="/login">Login</a>
+                {{/if}}
+                <a href="/catagories">Catagories</a>
+            </nav>
         </header>
         <main>
             <div class="bookstore">
