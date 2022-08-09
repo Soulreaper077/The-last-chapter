@@ -10,14 +10,13 @@
 body {
     font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
     margin: 0;
-}
-.wrapper {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     justify-content: flex-start;
     background-color: var(--secondary);
 }
+
 header {
     padding: 20px 35px;
 }
@@ -30,8 +29,7 @@ header h1 {
 main {
     display: flex;
     flex-wrap: wrap;
-    flex: 1;
-    justify-content: center;
+    flex-grow: 1;
 }
 
 .site-nav {
@@ -64,28 +62,5 @@ nav a {
 nav .btn {
     font-size: 3vh;
     border-radius: 10px;
-}
-.bookstore {
-    align-items: center;
-}
-.homepage{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-.app-description {
-    margin: 0 10px;
-    color: var(--primary);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    font-size: x-large;
-}
-.wishlists {
-    text-align: center;
-}
 
-.wishlist-lists li {
-    list-style: none;
 }
-
