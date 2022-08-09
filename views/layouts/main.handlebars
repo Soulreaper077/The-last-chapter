@@ -1,0 +1,33 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Last Chapter</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="site-nav display-flex">
+            <h1>
+                The Last Chapter
+            </h1>
+            <nav>
+                <a href="/">Home</a>
+                {{#if loggedIn}}
+                <button id="logout" class="btn-no-style">Logout</button>
+                {{else}}
+                <a href="/login">Login</a>
+                {{/if}}
+                <a href="/catagories">Catagories</a>
+            </nav>
+        </header>
+        <main>
+            <div class="bookstore">
+            {{{ body }}}
+            </div>
+        </main>
+    </div>
+    {{#if loggedIn}}
+        <script src="/js/logout.js"></script>
+    {{/if}}
+</body>
