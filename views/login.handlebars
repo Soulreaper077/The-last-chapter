@@ -1,19 +1,18 @@
-<section class="login-page">
+<div class="login-page">
     <div class="form-header">
         <h1>Sign In</h1>
     </div>
+    <form class="login">
     <div class="form-section">
-        <form action="/login/password" method="post">
-            <section>
                 <label for="username">Username</label>
-                <input id="username" name="username" type="text" autocomplete="username" required autofocus>
-            </section>
-            <section>
+                <input id="username-input" class="form-section" name="username" type="text" autocomplete="username" required autofocus/>
+    </div>
+    <div class="form-section">
                 <label for="current-password">Password</label>
-                <input id="current-password" name="password" type="password" autocomplete="current-password" required>
-            </section>
+                <input id="password-input" class="form-section" name="password" type="password" autocomplete="current-password" required/>
+    </div>
             <button type="submit">Sign in</button>
         </form>
+        </br>
+        <p>Or Sign Up <a href="/">here</a></p>
     </div>
-
-</section>
