@@ -9,10 +9,10 @@ router.get('/', (req, res) => {
     
 
 router.get('/login', (req, res) => {
-    if (req.session.loggedIn) {
+    /*if (req.session.loggedIn) {
         res.redirect('/');
         return; 
-    }
+    }*/
 
     res.render('login'); 
 });
@@ -55,6 +55,10 @@ router.get('/wishlist/:id', (req, res) => {
         res.status(500).json(err);
     });
 });
+
+router.get('/signup', (req, res) => {
+    res.render('signup');
+})
 
 
 module.exports = router; 
