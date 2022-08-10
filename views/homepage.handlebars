@@ -1,0 +1,13 @@
+<div class="app-description">
+    <p>A wonderful application to select from thousands of books and share youre wishlist with others</p>
+</div>
+<div class="user-lists">
+    <h1>Wishlists</h1>
+    <ul class="wishlist-lists">
+        {{#each wishlists as |wishlist|}}
+        <li>
+            {{> wishlist-info wishlist }}
+        </li>
+        {{/each}}
+    </ul>
+</div>

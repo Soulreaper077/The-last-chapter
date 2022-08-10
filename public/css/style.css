@@ -81,8 +81,10 @@ nav .btn {
     align-items: center;
     font-size: x-large;
 }
-.wishlists {
+.user-lists {
     text-align: center;
+    color: var(--primary);
+    text-decoration: underline;
 }
 
 .wishlist-lists li {
