@@ -1,6 +1,6 @@
 const seedBooks = require("./book-seeds");
 
-const sequelize = require("../config/connection");
+const sequelize = require("../../The-last-chapter-develop/config/connection");
 
 const seedAll = async () => {
   await sequelize.sync({ force: true });
