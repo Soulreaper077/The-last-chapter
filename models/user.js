@@ -52,7 +52,7 @@ User.init({
     User.hasOne(models.Wishlist, {
       allowNull: true,
     });
-    User.hasMany(models.Books, {
+    User.hasMany(models.Book, {
       allowNull: true,
     });
   };

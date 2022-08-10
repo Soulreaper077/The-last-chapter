@@ -1,0 +1,31 @@
+<section>
+  <h2>Create New Wishlist</h2>
+
+  <form class="new-wishlist-form">
+    <div>
+      <label for="wishlist-title">Title</label>
+      <input type="text" id="wishlist-title" name="wishlist-title" />
+    </div>
+    <div>
+      <label for="wishlist-text">Enter Books Here</label>
+      <input id="wishlist-text" name="wishlist-text" />
+    </div>
+    <button type="submit" class="btn">Create</button>
+  </form>
+</section>
+
+{{#if wishlist.length}}
+<section>
+  <h2>Your Wishlist</h2>
+  <ol>
+    {{#each wishlist as |wish|}}
+    <li>
+      {{> wishlist-info wishlist}}
+      <a href="/dashboard/edit/{{wishlist.id}}" class="edit-link">Edit wishlist</a>
+    </li>
+    {{/each}}
+  </ol>
+</section>
+{{/if}}
+
+<script src="/public/javascript/add-wishlist.js"></script>
