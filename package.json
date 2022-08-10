@@ -28,5 +28,8 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "sequelize": "^6.21.3"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
   }
 }
