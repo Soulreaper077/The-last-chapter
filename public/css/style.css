@@ -90,4 +90,16 @@ nav .btn {
 .wishlist-lists li {
     list-style: none;
 }
+.login,
+.signup,
+.form-section {
+    width: 100%;
+}
 
+.login-signup-btn {
+    width:100%;
+}
+.signup-form {
+    display: flex;
+    flex-direction: column;
+}
