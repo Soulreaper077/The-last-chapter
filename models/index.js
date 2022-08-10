@@ -1,11 +1,11 @@
-"use strict";
+/*"use strict";
 
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.json")[env];
+const config = require(__dirname + "/../config/connection.js")[env];
 const db = {};
 
 let sequelize;
@@ -43,4 +43,28 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+module.exports = db;*/
+
+const User = require('./user');
+const Book = require('./book');
+const Wishlist = require('./wishlist');
+
+User.hasOne(Wishlist, {
+  foreignKey: 'user_id',
+  onDelete: 'cascade'
+});
+
+Wishlist.belongsTo(User, {
+  foreignKey: 'user_id'
+});
+
+Wishlist.hasMany(Book, {
+  foreignKey: 'wishlist_id',
+  onDelete: 'cascade'
+});
+
+Book.belongsTo(Wishlist, {
+  foerighKey: 'wishlist_id'
+});
+
+module.exports = { User, Book, Wishlist };
