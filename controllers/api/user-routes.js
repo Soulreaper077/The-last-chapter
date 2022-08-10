@@ -98,6 +98,10 @@ router.post('/login', (req, res) => {
     }
   });
 
+  router.put('/:id', (req, res) => {
+
+  
+
   User.update(req.body, {
     individualHooks: true,
     where: {
@@ -115,7 +119,7 @@ router.post('/login', (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
-
+})
 router.delete('/:id', (req, res) => {
   User.destroy({
     where: {

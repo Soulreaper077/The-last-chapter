@@ -4,34 +4,9 @@ const { Book, User, Wishlist } = require('../models');
 
 // or Get wishlist / post by user to display to homepage 
 router.get('/', (req, res) => {
-    console.log( ' getting the wishlist for all of the users');
-    Wishlist.findAll({
-        attributes: [
-            'id',
-            'title',
-            'description',
-            'posted_at',
-        ],
-        include: [
-            {
-                model: User,
-                attributes: ['username'],
-            },
-        ]
-    })
-    .then(dbWishData => {
-        const wishes = dbWishData.map(wish => wish.get({ plain: true }));
-
-        res.render('homepage', {
-            wishes,
-            loggedIn: req.session.loggedIn
-        });
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
+    res.render('homepage'); 
 });
+    
 
 router.get('/login', (req, res) => {
     if (req.session.loggedIn) {

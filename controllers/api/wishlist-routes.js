@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('../../config/Connection');
-const { Book, User, Wishlist } = require('../models');
-const withAuth = require('../utils/auth');
+const { Book, User, Wishlist } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // get all of the wishlist books for the user 
 router.get('/', withAuth, (req, res) => {
