@@ -1,30 +1,51 @@
-const bcrypt = require("bcrypt");
+const {
+  Model,
+  DataTypes
+} = require('sequelize');
+const sequelize = require('../config/connection');
+const bcrypt = require('bcrypt');
 
-module.exports = function (sequelize, DataTypes) {
-  var User = sequelize.define("User", {
-    name: DataTypes.STRING,
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
+class User extends Model {
+  checkPassword(loginPw) {
+    return bcrypt.compareSync(loginPw, this.password);
+  }
+}
+
+User.init({
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      len: [4]
+    }
+  }
+}, {
+  hooks: {
+    async beforeCreate(newUserData) {
+      newUserData.password = await bcrypt.hash(newUserData.password, 10);
+      return newUserData;
     },
-    // Password can not be null
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: new Date(),
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: new Date(),
-    },
-  });
+    async beforeUpdate(updateUserData) {
+      updateUserData.password = await bcrypt.hash(updateUserData.password, 10);
+      return updateUserData
+    }
+  },
+  sequelize,
+  timestamps: false,
+  freezeTableName: true,
+  underscored: true,
+  modelName: 'user'
+})
 
   User.associate = function (models) {
     // associate USer with Wishlist
@@ -40,13 +61,4 @@ module.exports = function (sequelize, DataTypes) {
     return bcrypt.compareSync(password, this.password);
   };
 
-  User.addHook("beforeCreate", function (user) {
-    user.password = bcrypt.hashSync(
-      user.password,
-      bcrypt.genSaltSync(10),
-      null
-    );
-  });
-
   return User;
-};
