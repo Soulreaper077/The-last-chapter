@@ -1,3 +1,4 @@
+
 const { Book } = require("../models");
 
 const booksData = [
@@ -174,6 +175,12 @@ const booksData = [
       "http://books.google.com/books/content?id=Jx6BvgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
     description:
       "An omnibus volume of the author's complete story of the Arthurian epic which includes: The sword in the stone (1939), The witch in the wood (1939),The ill-made knight (1940), The candle in the wind (published for the first time), and The book of Merlyn.",
+    title: 'The Once and Future King',
+    subtitle: '',
+    authors: 'Terence Hanbury White',
+    categories: 'Romance',
+    thumbnails: 'http://books.google.com/books/content?id=Jx6BvgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api',
+    description: "An omnibus volume of the author's complete story of the Arthurian epic which includes: ,The sword in the stone (1939) ,The witch in the wood (1939), The ill-made knight (1940), The candle in the wind (published for the first time) and, The book of Merlyn.",
     published_year: 1996,
     average_rating: 4.04,
     num_pages: 823,
@@ -187,6 +194,12 @@ const booksData = [
       "http://books.google.com/books/content?id=I2jbBlMHlAMC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
     description:
       "Available in the U.S. for the first time, this is the second volume in the exceptional Legends of the Riftwar series from New York Times-bestselling authors Feist and Rosenberg.",
+    title: 'Murder in LaMut',
+    subtitle: '',
+    authors: 'Raymond E. Feist;Joel Rosenberg',
+    categories: 'Adventure Stories',
+    thumbnails: 'http://books.google.com/books/content?id=I2jbBlMHlAMC&printsec=frontcover&img=1&zoom=1&source=gbs_api',
+    description: "Available in the U.S. for the first time, this is the second volume in the exceptional Legends of the Riftwar series from New York Times-bestselling authors Feist and Rosenberg.",
     published_year: 2003,
     average_rating: 3.7,
     num_pages: 337,
@@ -200,6 +213,12 @@ const booksData = [
       "http://books.google.com/books/content?id=hV4-oITYFN8C&printsec=frontcover&img=1&zoom=1&source=gbs_api",
     description:
       "Jimmy the Hand, boy thief of Krondor, lived in the shadows of the city. Though gifted beyond his peers, Jimmy is merely a pickpocket with potential--until he aids Prince Arutha in the rescue of Princess Anita from Duke Guy du Bas-Tyra, and runs afoul of Black Guy's secret police. Facing a choice between disappearing on his own or in a weighted barrel at the bottom of Krondor's harbor, Jimmy chooses the former. Forced to flee the only home he's ever known, Jimmy finds himself among the unsuspecting rural villagers of Land's End, where he hopes to prosper with his talents for con and thievery. But Land's End is home to many who tread the crooked path--and to a dark, dangerous presence even the local smugglers don't recognize. And suddenly Jimmy's youthful bravado and courage are leading him into the maw of chaos . . . and, quite possibly, to his doom.",
+    title: 'Jimmy the Hand',
+    subtitle: '',
+    authors: 'Raymond E. Feist;S. M. Stirling',
+    categories: 'Fantasy',
+    thumbnails: 'http://books.google.com/books/content?id=hV4-oITYFN8C&printsec=frontcover&img=1&zoom=1&source=gbs_api',
+    description: "Jimmy the Hand, boy thief of Krondor, lived in the shadows of the city. Though gifted beyond his peers, Jimmy is merely a pickpocket with potential--until he aids Prince Arutha in the rescue of Princess Anita from Duke Guy du Bas-Tyra, and runs afoul of Black Guy's secret police. Facing a choice between disappearing on his own or in a weighted barrel at the bottom of Krondor's harbor, Jimmy chooses the former. Forced to flee the only home he's ever known, Jimmy finds himself among the unsuspecting rural villagers of Land's End, where he hopes to prosper with his talents for con and thievery. But Land's End is home to many who tread the crooked path--and to a dark, dangerous presence even the local smugglers don't recognize. And suddenly Jimmy's youthful bravado and courage are leading him into the maw of chaos . . . and, quite possibly, to his doom.",
     published_year: 2003,
     average_rating: 3.95,
     num_pages: 368,
@@ -209,3 +228,4 @@ const booksData = [
 const seedBooks = () => Book.bulkCreate(booksData);
 
 module.exports = seedBooks;
+
