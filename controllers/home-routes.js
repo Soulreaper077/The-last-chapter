@@ -60,5 +60,13 @@ router.get('/signup', (req, res) => {
     res.render('signup');
 })
 
+router.get('/wishlist', (req, res) => {
+    res.render('wishlist');
+})
+
+router.get('/single-book', (req, res) => {
+    res.render('single-book');
+})
+
 
 module.exports = router; 
