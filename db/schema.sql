@@ -1,4 +1,14 @@
--- DROPS THE last_chapter_db if it exists currently --
-DROP DATABASE IF EXISTS last_chapter_db;
--- CREATES the "last_chapter_db" datanase --
-CREATE DATABASE last_chapter_db;
+CREATE TABLE books (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(80),
+    subtitle VARCHAR(255),
+    authors VARCHAR(40),
+    categories VARCHAR(50),
+    thumbnail VARCHAR(255),
+    description TEXT,
+    published_year INTEGER,
+    average_rating DECIMAL(10,0),
+    num_pages INTEGER,
+    ratings_count INTEGER,
+    price DECIMAL(10,0)
+);

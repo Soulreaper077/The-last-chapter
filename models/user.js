@@ -2,7 +2,15 @@ const bcrypt = require("bcrypt");
 
 module.exports = function (sequelize, DataTypes) {
   var User = sequelize.define("User", {
-    name: DataTypes.STRING,
+    id: {
+      type: DataTypes.INTEGER,
+      field: 'id',
+      autoIncrement: !0,
+      primaryKey: !0
+    },
+    username: {
+      type: DataTypes.STRING,
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -31,7 +39,7 @@ module.exports = function (sequelize, DataTypes) {
     User.hasOne(models.Wishlist, {
       allowNull: true,
     });
-    User.hasMany(models.Books, {
+    User.hasMany(models.Book, {
       allowNull: true,
     });
   };
@@ -50,3 +58,5 @@ module.exports = function (sequelize, DataTypes) {
 
   return User;
 };
+
+

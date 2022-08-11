@@ -1,0 +1,25 @@
+<article class="book">
+    <div class="whole-book">
+        <div class="info-section">
+            <div class="img">
+                <img src="{{book.thumbnail}}">
+            </div>
+            <div class="book-name">
+                <a href="/book/{{id}}" class="links">{{title}}</a>
+            </div>
+            <div class="created-by">
+                <p id="book-subtitle">
+                Written by <b>{{book.authors}} </b> on <b>{{book.published_year}}</b>
+                </p>
+            </div>
+            <div class="count">
+                <p>
+                    Page count: <b>{{book.num_pages}}</b>
+                </p>
+            </div>
+        </div>
+        <div class="description">
+            <p>{{book.description}}</p>
+        </div>
+    </div>
+</article>
