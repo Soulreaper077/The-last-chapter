@@ -1,9 +1,6 @@
-const {
-  Model,
-  DataTypes
-} = require('sequelize');
-const sequelize = require('../config/connection');
-const bcrypt = require('bcrypt');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
+const bcrypt = require("bcrypt");
 
 class User extends Model {
   checkPassword(loginPw) {
@@ -11,54 +8,60 @@ class User extends Model {
   }
 }
 
-User.init({
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      len: [4]
-    }
-  }
-}, {
-  hooks: {
-    async beforeCreate(newUserData) {
-      newUserData.password = await bcrypt.hash(newUserData.password, 10);
-      return newUserData;
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
     },
-    async beforeUpdate(updateUserData) {
-      updateUserData.password = await bcrypt.hash(updateUserData.password, 10);
-      return updateUserData
-    }
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [4],
+      },
+    },
   },
-  sequelize,
-  timestamps: false,
-  freezeTableName: true,
-  underscored: true,
-  modelName: 'user'
-})
+  {
+    hooks: {
+      async beforeCreate(newUserData) {
+        newUserData.password = await bcrypt.hash(newUserData.password, 10);
+        return newUserData;
+      },
+      async beforeUpdate(updateUserData) {
+        updateUserData.password = await bcrypt.hash(
+          updateUserData.password,
+          10
+        );
+        return updateUserData;
+      },
+    },
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: "user",
+  }
+);
 
-  User.associate = function (models) {
-    // associate USer with Wishlist
-    User.hasOne(models.Wishlist, {
-      allowNull: true,
-    });
-    User.hasMany(models.Books, {
-      allowNull: true,
-    });
-  };
+User.associate = function (models) {
+  // associate USer with Wishlist
+  User.hasOne(models.Wishlist, {
+    allowNull: true,
+  });
+  User.hasMany(models.Books, {
+    allowNull: true,
+  });
+};
 
-  User.prototype.validPassword = function (password) {
-    return bcrypt.compareSync(password, this.password);
-  };
+User.prototype.validPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
-  return User;
+module.exports = User;
