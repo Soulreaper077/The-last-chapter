@@ -1,6 +1,6 @@
 const seedBooks = require("./book-seeds");
 
-const sequelize = require("../../The-last-chapter-develop/config/connection");
+const sequelize = require("../config/Connection");
 
 const seedAll = async () => {
   await sequelize.sync({ force: true });
@@ -9,4 +9,4 @@ const seedAll = async () => {
   console.log("\n----- BOOKS SEEDED -----\n");
 };
 
-seedAll;
+seedAll();

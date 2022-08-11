@@ -1,51 +1,24 @@
-// *****************************************************************************
-// Server.js - This file is the initial starting point for the Node/Express server.
-//
-// ******************************************************************************
-// *** Dependencies
-// =============================================================
-var express = require("express");
-var path = require("path");
+const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const exphs = require('express-handlebars');
+const sequelize = require('./config/Connection');
 
-var session = require("express-session");
-// Requiring passport as we've configured it
+const app = express();
+const PORT = process.env.PORT || 3001; 
 
-// Compress
-var compression = require("compression");
+const helpers = require('./utils/helpers');
+const hbs = exphs.create({ helpers });
 
-// Sets up the Express App
-// =============================================================
-var app = express();
-var PORT = process.env.PORT || 8090;
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars'); 
 
-// compress all responses
-app.use(compression());
-
-// Requiring our models for syncing
-var db = require("./models");
-
-// Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Static directory
-app.use(express.static("public"));
+app.use(require('./controllers/'));
 
-// We need to use sessions to keep track of our user's login status
-
-// Routes
-// =============================================================
-require("./controllers/api/book-routes")(app);
-
-// Syncing our sequelize models and then starting our Express app
-// =============================================================
-/* { force: true } */
-db.sequelize.sync().then(function () {
-  app.listen(PORT, function () {
-    console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
-      PORT,
-      PORT
-    );
-  });
+sequelize.sync({ force: false }).then(() => {
+    app.listen(PORT, () => console.log( `Now listening on ${PORT}`));
 });

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const sequelize = require('../../config/Connection');
-const { Book } = require('../../config/Connection'); 
+const Book = require('../../models/book'); 
 const withAuth = require('../../utils/auth'); 
 
 // getting all of the books to display to the homepage? 
@@ -26,7 +26,6 @@ router.get('/', (req, res) => {
 
         res.render('homepage', {
             books,
-            loggedIn: req.session.loggedIn
         });
     })
     .catch(err => {

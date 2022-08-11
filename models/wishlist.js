@@ -1,8 +1,8 @@
-// Requiring our models
-/* var db = require("../models");
+//Requiring our models
+  db = require(".");
 
 module.exports = function (sequelize, DataTypes) {
-  const Wishlist_Book = sequelize.define("Wishlist_Book", {
+  const Wishlist = sequelize.define("Wishlist", {
     WishlistId: {
       type: DataTypes.INTEGER,
       references: {
@@ -20,5 +20,5 @@ module.exports = function (sequelize, DataTypes) {
     },
   });
 
-  return Wishlist_Book;
-}; */
+  return Wishlist;
+}; 
