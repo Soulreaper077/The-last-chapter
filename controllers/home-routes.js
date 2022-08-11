@@ -9,11 +9,11 @@ router.get('/', (req, res) => {
     
 
 router.get('/login', (req, res) => {
-    //console.log(req.session);
-    //if (req.session.loggedIn) {
-       // res.redirect('/');
-      //  return; 
-   // }
+    console.log(req.session);
+    if (req.session.loggedIn) {
+        res.redirect('/dashboard');
+        return; 
+    }
 
     res.render('login'); 
 });
@@ -56,6 +56,29 @@ router.get('/wishlist/:id', (req, res) => {
         res.status(500).json(err);
     });
 });
+
+router.get('/library', (req, res) => {
+    Book.findAll({
+        attributes: [
+            'id',
+            'title',
+            'thumbnail'
+        ]
+    })
+    .then(dbLibData => {
+        const books = dbLibData.map(book => book.get({
+            plain: true
+        }));
+
+        res.render('library', {
+            books
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+})
 
 
 module.exports = router; 
