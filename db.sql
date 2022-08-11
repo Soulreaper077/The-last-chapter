@@ -3,6 +3,5 @@ DROP DATABASE IF EXISTS last_chapter_db;
 -- CREATES the "last_chapter_db" datanase --
 CREATE DATABASE last_chapter_db;
 
-USE last_chapter_db;
 
 
