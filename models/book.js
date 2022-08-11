@@ -1,51 +1,16 @@
-const { Model, DataTypes } = require('sequelize'); 
-const sequelize = require('../config/Connection'); 
-const User = require('./user');
-
-class Book extends Model {}; 
-
-    Book.init(
-      {
-        id: {
-          type: DataTypes.INTEGER,
-          allowNull: false,
-          primaryKey: true, 
-          autoIncrement: true, 
-        },
-        title: { 
-          type: DataTypes.STRING,
-          allowNull: false, 
-        },
-    subtitle:{
-      type: DataTypes.STRING,
-    },
-    authors: {
-      type: DataTypes.STRING,
-    },
-    categories: {
-      type: DataTypes.STRING,
-    },
-    thumbnail: {
-      type: DataTypes.STRING,
-    },
-    description: {
-      type: DataTypes.TEXT,
-    },
-    published_year: {
-      type: DataTypes.INTEGER,
-    },
-    average_rating: {
-      type: DataTypes.DECIMAL,
-    },
-    num_pages: {
-      type: DataTypes.INTEGER,
-    },
-    ratings_count: {
-      type: DataTypes.INTEGER,
-    },
-    price: {
-      type: DataTypes.DECIMAL(10, 2),
-    },
+module.exports = function (sequelize, DataTypes) {
+  var Book = sequelize.define("Book", {
+    title: DataTypes.STRING,
+    subtitle: DataTypes.STRING,
+    authors: DataTypes.STRING,
+    categories: DataTypes.STRING,
+    thumbnail: DataTypes.STRING,
+    description: DataTypes.TEXT,
+    published_year: DataTypes.INTEGER,
+    average_rating: DataTypes.DECIMAL,
+    num_pages: DataTypes.INTEGER,
+    ratings_count: DataTypes.INTEGER,
+    price: DataTypes.DECIMAL(10, 2),
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: new Date(),
@@ -54,24 +19,12 @@ class Book extends Model {};
       type: DataTypes.DATE,
       defaultValue: new Date(),
     },
-  },
-  {
-    sequelize,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'book'
   });
 
-  Book.assocation = function (models) {
+  Book.associate = function (models) {
+    Book.belongsToMany(models.Wishlist, { through: "Wishlist_Book" }); // Missing variables purchase_id and book_id
+    // Book.belongsToMany(models.User, { through: 'User_Book' });
+  };
 
-    Book.belongsTo(models.User, {
-      allowNull: true, 
-    });
-    Book.belongsToMany(models.User, {
-      allowNull: true, 
-    }); 
-  }
-  
-
-  module.exports = Book; 
-      
+  return Book;
+};

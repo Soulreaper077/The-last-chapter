@@ -1,60 +1,26 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/Connection');
-// create our Post model
-class Wishlist extends Model {
-  static upvote(body, models) {
-    return models.Vote.create({
-      user_id: body.user_id,
-      post_id: body.wishlist_id
-    }).then(() => {
-      return Post.findOne({
-        where: {
-          id: body.wishlist_id
-        },
-        attributes: [
-          'id',
-          'title',
-          'description',
-          'created_at',
-        ],
-          }
-        
-      );
+module.exports = function (sequelize, DataTypes) {
+  var Wishlist = sequelize.define("Wishlist", {
+    // total: DataTypes.DECIMAL(10,2),
+    date: DataTypes.DATE,
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+    },
+  });
+
+  Wishlist.associate = function (models) {
+    Wishlist.belongsTo(models.User, {
+      foreignKey: {
+        // ??
+        allowNull: false,
+      },
     });
-}
-}
+    Wishlist.belongsToMany(models.Book, { through: "Wishlist_Book" });
+  };
 
-// create fields/columns for Post model
-Wishlist.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'user',
-        key: 'id'
-      }
-    }
-  },
-  {
-    sequelize,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'wishlist'
-  }
-);
-
-module.exports = Wishlist;
+  return Wishlist;
+};

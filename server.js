@@ -1,38 +1,54 @@
-const path = require('path');
-const express = require('express');
-const session = require('express-session');
-const exphs = require('express-handlebars');
+// *****************************************************************************
+// Server.js - This file is the initial starting point for the Node/Express server.
+//
+// ******************************************************************************
+// *** Dependencies
+// =============================================================
+var express = require("express");
+var path = require("path");
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+var session = require("express-session");
+// Requiring passport as we've configured it
+var passport = require("./config/passport");
 
-const sequelize = require('./config/Connection');
-const SequelizeStore = require('connect-session-sequelize')(session.Store); 
+// Compress
+var compression = require("compression");
 
-const sess = {
-    secret: 'super secret secret',
-    cookie: {},
-    resave: false, 
-    saveUninitialized: true, 
-    store: new SequelizeStore({
-        db: sequelize
-    })
-};
+// Sets up the Express App
+// =============================================================
+var app = express();
+var PORT = process.env.PORT || 3001;
 
-app.use(session(sess)); 
+// compress all responses
+app.use(compression());
 
-const helpers = require('./utils/helpers');
-const hbs = exphs.create({ helpers });
+// Requiring our models for syncing
+var db = require("./models");
 
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars'); 
-
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(require('./controllers/'));
+// Set Handlebars.
+var exphbs = require("express-handlebars");
 
-sequelize.sync({ force: true }).then(() => {
-    app.listen(PORT, () => console.log( `Now listening on ${PORT}`));
+// Static directory
+app.use(express.static("public"));
+
+// We need to use sessions to keep track of our user's login status
+app.use(
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routes
+// =============================================================
+require("./controllers/html-routes")(app);
+require("./controllers/user-api-routes")(app);
+require("./controllers/book-api-routes")(app);
+require("./controllers/wishlist-routes")(app);
+
+db.sequelize.sync({ force: true }).then(() => {
+  app.listen(PORT, () => console.log(`Now Listening on ${PORT}`));
 });

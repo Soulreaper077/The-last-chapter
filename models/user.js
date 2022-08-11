@@ -1,75 +1,58 @@
-const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
-const sequelize = require('../config/Connection');
+var bcrypt = require("bcrypt");
 
-// create our User model
-class User extends Model {
-  // set up method to run on instance data (per user) to check password
-  checkPassword(loginPw) {
-    return bcrypt.compareSync(loginPw, this.password);
-  }
-}
-
-// create fields/columns for User model
-User.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+module.exports = function (sequelize, DataTypes) {
+  var User = sequelize.define("User", {
+    name: DataTypes.STRING,
+    // The email cannot be null, and must be a proper email before creation
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
-      }
+        isEmail: true,
+      },
     },
+    // The password cannot be null
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        len: [4]
-      }
-    }
-  },
-  {
-    hooks: {
-      async beforeCreate(newUserData) {
-        newUserData.password = await bcrypt.hash(newUserData.password, 10);
-        return newUserData;
-      },
-
-      async beforeUpdate(updatedUserData) {
-        updatedUserData.password = await bcrypt.hash(newUserData.password, 10);
-        return updatedUserData;
-      }
     },
-    sequelize,
-  timestamps: false, 
-  freezeTableName: true,
-  underscored: true, 
-  modelName: 'user'
-  }
-); 
-
-User.assocation = function (models) {
-
-  User.hasOne(models.Wishlist, {
-    allowNull: true, 
+    preferences1: DataTypes.STRING,
+    preferences2: DataTypes.STRING,
+    preferences3: DataTypes.STRING,
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+    },
   });
-  User.hasMany(models.Book, {
-    allowNull: true, 
-  }); 
-}
 
-  module.exports = User
+  User.associate = function (models) {
+    // Associating User with Shoppingcart
+    // When an User is deleted, also delete any associated Shoppingcarts
+    //User.hasOne(models.Shoppingcart, {
+    // allowNull: true,
+    //});
+    /* User.hasMany(models.Book, {
+            allowNull: true
+        }); */
+    User.hasOne(models.Wishlist, {});
+  };
 
+  User.prototype.validPassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
+  };
 
+  User.addHook("beforeCreate", function (user) {
+    user.password = bcrypt.hashSync(
+      user.password,
+      bcrypt.genSaltSync(10),
+      null
+    );
+  });
 
+  return User;
+};
