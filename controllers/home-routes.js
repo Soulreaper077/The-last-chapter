@@ -80,5 +80,47 @@ router.get('/library', (req, res) => {
     });
 })
 
+router.get('/book/:id', (req, res) => {
+    Book.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: [
+            'title',
+            'subtitle',
+            'authors',
+            'categories',
+            'thumbnail',
+            'description',
+            'published_year',
+            'average_rating',
+            'num_pages',
+            'ratings_count',
+            'price',
+        ],
+    })
+    .then(dbBook => {
+        if (!dbBook) {
+            res.status(404).json({
+                message: 'No post found with this id'
+            });
+            return;
+        }
+
+        const book = dbBook.get({
+            plain: true
+        });
+    res.render('single-book', {
+        book
+    });
+});
+});
+
+router.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
+
+
 
 module.exports = router; 
