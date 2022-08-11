@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+/*module.exports = function (sequelize, DataTypes) {
     var Wishlist = sequelize.define("Wishlist", {
       // total: DataTypes.DECIMAL(10,2),
       date: DataTypes.DATE,
@@ -24,3 +24,38 @@ module.exports = function (sequelize, DataTypes) {
   
     return Wishlist;
   };
+
+  module.exports = Wishlist;*/
+
+  const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/Connection');
+
+class Wishlist extends Model {}
+
+Wishlist.init ({
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  user_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'user',
+      key: 'id'
+    }
+  }
+}, {
+  sequelize,
+  timestamps: false,
+  freezeTableName: true,
+  underscored: true,
+  modelName: 'wishlist'
+})
+
+module.exports = Wishlist;

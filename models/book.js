@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+/*module.exports = function (sequelize, DataTypes) {
     var Book = sequelize.define("Book", {
       title: DataTypes.STRING,
       subtitle: DataTypes.STRING,
@@ -23,4 +23,61 @@ module.exports = function (sequelize, DataTypes) {
   
     return Book;
   };
-  
+  */
+
+  const { Model, DataTypes } = require('sequelize');
+
+const sequelize = require('../config/connection');
+
+class Book extends Model {}
+
+Book.init ({
+  id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  title:{
+    type: DataTypes.STRING
+  },
+  subtitle:{
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  authors: {
+    type: DataTypes.STRING
+  },
+  categories: {
+    type: DataTypes.STRING
+  },
+  thumbnail: {
+    type: DataTypes.STRING
+  },
+  description: {
+    type: DataTypes.STRING
+  },
+  published_year: {
+    type: DataTypes.INTEGER
+  },
+  average_rating: {
+    type: DataTypes.DECIMAL
+  },
+  page_count: {
+    type: DataTypes.INTEGER
+  },
+  ratings_count: {
+    type: DataTypes.INTEGER
+  },
+  price: {
+    type: DataTypes.DECIMAL
+  }
+}, {
+  sequelize,
+  timestamps: false,
+  freezeTableName: true,
+  underscored: true,
+  modelName: 'book'
+})
+
+module.exports = Book;

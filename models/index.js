@@ -1,4 +1,4 @@
-"use strict";
+/*"use strict";
 
 const fs = require("fs");
 const path = require("path");
@@ -43,4 +43,34 @@ Object.keys(db).forEach((modelName) => {
 //db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+module.exports = db;*/
+
+const User = require('./user');
+const Book = require('./book');
+const Wishlist = require('./wishlist');
+
+User.hasOne(Wishlist, {
+  foreignKey: 'user_id',
+  onDelete: 'cascade'
+});
+
+Wishlist.belongsTo(User, {
+  foreignKey: 'user_id',
+  onDelete: "cascade'"
+});
+
+Book.belongsTo(Wishlist, {
+  foreignKey: 'wishlist_id',
+  onDelete: 'cascade'
+});
+
+Wishlist.hasMany(Book, {
+  foreignKey: 'wishlist_id',
+  onDelete: 'cascade'
+});
+
+module.exports = {
+  User,
+  Book,
+  Wishlist
+}

@@ -65,6 +65,9 @@ nav .btn {
     font-size: 3vh;
     border-radius: 10px;
 }
+.bookstore {
+    align-items: center;
+}
 .homepage{
     display: flex;
     justify-content: center;

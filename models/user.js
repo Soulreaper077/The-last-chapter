@@ -47,7 +47,7 @@ User.init({
   modelName: 'user'
 })
 
-  User.associate = function (models) {
+  /*User.associate = function (models) {
     // associate USer with Wishlist
     User.hasOne(models.Wishlist, {
       allowNull: true,
@@ -62,3 +62,6 @@ User.init({
   };
 
   return User;
+*/
+
+module.exports = User;
