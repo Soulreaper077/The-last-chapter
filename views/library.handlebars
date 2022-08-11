@@ -1,0 +1,9 @@
+<article>
+<ul class="library-list library">
+    {{#each books as |book|}}
+    <li class="library-book">
+        {{> library-info book }}
+    </li>
+    {{/each}}
+</ul>
+</article>

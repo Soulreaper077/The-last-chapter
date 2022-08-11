@@ -13,6 +13,7 @@
             </h1>
             <nav>
                 <a href="/">Home</a>
+                <a href="/library">Library</a>
                 {{#if loggedIn}}
                 <a href="/dashboard">Dashboard</a>
                 <button id="logout" class="btn-no-style">Logout</button>
@@ -23,9 +24,7 @@
             </nav>
         </header>
         <main>
-            <div class="bookstore">
             {{{ body }}}
-            </div>
         </main>
     </div>
     {{#if loggedIn}}

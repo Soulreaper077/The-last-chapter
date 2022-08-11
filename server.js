@@ -32,6 +32,10 @@ app.use(express.json());
 // Set Handlebars.
 var exphbs = require("express-handlebars");
 
+const helpers = require('./utils/helpers');
+const hbs = exphbs.create({ helpers });
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars'); 
 // Static directory
 app.use(express.static("public"));
 
@@ -49,6 +53,6 @@ require("./controllers/user-api-routes")(app);
 require("./controllers/book-api-routes")(app);
 require("./controllers/wishlist-routes")(app);
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now Listening on ${PORT}`));
 });

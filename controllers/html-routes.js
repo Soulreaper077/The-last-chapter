@@ -6,6 +6,8 @@
 // =============================================================
 var path = require("path");
 
+var db = require('../models');
+
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 
@@ -16,11 +18,7 @@ module.exports = function (app) {
 
   // index route loads home.html
   app.get("/", function (req, res) {
-    if (req.user) {
-      res.redirect("/home");
-    } else {
-      res.render("signup", { js: ["signup.js"] });
-    }
+    res.render('homepage')
   });
 
   app.get("/login", function (req, res) {
@@ -49,4 +47,23 @@ module.exports = function (app) {
     // res.sendFile(path.join(__dirname, "../public/views/cart.html"));
     res.render("cart", { js: ["wishlist.js"] });
   });
+
+
+app.get("/library", function(req, res) {
+  db.Book.findAll({})
+    .then(dbLibData => {
+      const books = dbLibData.map(book => book.get({
+          plain: true
+      }));
+
+      res.render('library', {
+          books
+      });
+  })
+  .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+  });
+})
+
 };
