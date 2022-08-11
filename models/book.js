@@ -62,5 +62,16 @@ class Book extends Model {};
     modelName: 'book'
   });
 
+  Book.assocation = function (models) {
+
+    Book.belongsTo(models.User, {
+      allowNull: true, 
+    });
+    Book.belongsToMany(models.User, {
+      allowNull: true, 
+    }); 
+  }
+  
+
   module.exports = Book; 
       

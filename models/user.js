@@ -61,7 +61,7 @@ User.init(
 
 User.assocation = function (models) {
 
-  User.hasOne(models.wishlist, {
+  User.hasOne(models.Wishlist, {
     allowNull: true, 
   });
   User.hasMany(models.Book, {

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const  Book = require('../../models/book');
 const  User = require('../../models/user');
+const Wishlist = require('../../models/wishlist')
 
 // this is to get all of the users 
 router.get('/', (req, res) => {
@@ -22,8 +23,8 @@ router.get('/:id', (req, res) => {
         },
         include: [
             {
-                model: Book, // place model here
-                attributes: ['id', 'title', 'subtitle', 'authors', 'categories', 'thumbnail', 'description', 'published_year', 'average_rating', 'num_pages', 'ratings_count', 'price', 'createdAt', "updatedAt" ]
+                model: Wishlist, // place model here
+                attributes: ['id', 'title', 'description', 'created_at' ]
             },
         ]
     })
