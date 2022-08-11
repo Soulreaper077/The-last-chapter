@@ -61,9 +61,32 @@ app.get("/library", function(req, res) {
       });
   })
   .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
+    console.log(err);
+    res.status(500).json(err);
+});
+})
+
+
+
+app.get("/book/:id", function(req, res) {
+  db.Book.findOne({
+    where: {
+      id: req.params.id,
+    }
+  })
+  .then(dbBook => { const book = dbBook.get({
+    plain: true
+});
+
+  res.render('single-book', {
+    book
   });
+})
+    .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+});
+    
 })
 
 };
